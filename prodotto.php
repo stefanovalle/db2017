@@ -6,9 +6,7 @@ $db = creaConnessionePDO();
 // lettura parametro da URL
 $id = $_GET['id'];
 
-// Sostituire <QUERY> con la query SQL corretta
-// specificare :id in corrispondenza del valore dell'id prodotto
-$stmt = $db->prepare('<QUERY>');
+$stmt = $db->prepare('SELECT * FROM prodotti WHERE id = :id');
 
 // bind parametro alla query
 $stmt->bindParam(':id', $id, PDO::PARAM_INT);

@@ -33,8 +33,7 @@ $db = creaConnessionePDO();
           <tbody>
           <?php
 
-          // Sostituire <QUERY> con la query SQL corretta
-          $stmt = $db->prepare('<QUERY>');
+          $stmt = $db->prepare('SELECT * FROM prodotti ORDER BY nome');
           $stmt->execute();
 
           foreach($stmt->fetchAll(PDO::FETCH_ASSOC) as $prodotto) {
