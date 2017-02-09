@@ -26,6 +26,8 @@ $db = creaConnessionePDO();
         <table class="table">
           <thead>
           <tr>
+            <th>Macrocategoria</th>
+            <th>Categoria</th>
             <th>Nome</th>
             <th>Prezzo</th>
           </tr>
@@ -33,12 +35,18 @@ $db = creaConnessionePDO();
           <tbody>
           <?php
 
-          $stmt = $db->prepare('SELECT * FROM prodotti ORDER BY nome');
+          $stmt = $db->prepare('SELECT macrocategorie.nome as macrocategoria, categorie.nome as categoria, prodotti.* 
+                                FROM prodotti, macrocategorie, categorie
+                                WHERE prodotti.categoria_id = categorie.id
+                                AND categorie.macrocategoria_id = macrocategorie.id
+                                ORDER BY macrocategoria, categoria, prodotti.nome');
           $stmt->execute();
 
           foreach($stmt->fetchAll(PDO::FETCH_ASSOC) as $prodotto) {
           ?>
             <tr>
+              <td><?= $prodotto['macrocategoria'] ?></td>
+              <td><?= $prodotto['categoria'] ?></td>
               <td><a href="prodotto.php?id=<?=$prodotto['id']?>"><?= $prodotto['nome'] ?></a></td>
               <td><?= $prodotto['prezzo'] ?> &euro;</td>
             </tr>

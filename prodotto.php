@@ -6,7 +6,11 @@ $db = creaConnessionePDO();
 // lettura parametro da URL
 $id = $_GET['id'];
 
-$stmt = $db->prepare('SELECT * FROM prodotti WHERE id = :id');
+$stmt = $db->prepare('SELECT macrocategorie.nome as macrocategoria, categorie.nome as categoria, prodotti.* 
+                      FROM prodotti, macrocategorie, categorie
+                      WHERE prodotti.categoria_id = categorie.id
+                      AND categorie.macrocategoria_id = macrocategorie.id
+                      AND prodotti.id = :id');
 
 // bind parametro alla query
 $stmt->bindParam(':id', $id, PDO::PARAM_INT);
@@ -36,6 +40,7 @@ $prodotto = $stmt->fetch(PDO::FETCH_ASSOC);
       </div>
       <div class="row">
         <div class="col-md-12">
+          <h2><?= $prodotto['macrocategoria'] ?> &gt; <?= $prodotto['categoria'] ?></h2>
           <h3><?= $prodotto['descrizione'] ?></h3>
           <div>
             <strong>Prezzo</strong>: <?= $prodotto['prezzo'] ?>
