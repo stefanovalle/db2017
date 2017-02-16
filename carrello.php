@@ -49,7 +49,12 @@ $carrello = $_SESSION['carrello'];
               $totaleCarrello = 0;
               foreach($carrello as $rigaCarrello) {
 
-                $stmt = $db->prepare('<QUERY SQL>');
+                $stmt = $db->prepare('SELECT prodotti.nome, prodotti.prezzo, prodottivarianti.prezzo as prezzo_variante, varianti.nome as nome_variante 
+                                    FROM prodottivarianti, varianti, prodotti
+                                    WHERE prodottivarianti.variante_id = varianti.id
+                                    AND prodotti.id = prodottivarianti.prodotto_id
+                                    AND prodottivarianti.prodotto_id = :idProdotto
+                                    AND prodottivarianti.variante_id = :idVariante');
 
                 // bind parametro alla query
                 $stmt->bindParam(':idProdotto', $rigaCarrello['prodotto'], PDO::PARAM_INT);
