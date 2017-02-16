@@ -76,7 +76,7 @@ if (isset($_SESSION['carrello'])) {
                 <td><?= $valori['nome'] ?><br />
                   <small><?= $valori['nome_variante'] ?></small></td>
                 <td>1</td>
-                <td><?= $valori['prezzo'] ?> &euro;</td>
+                <td><?= $prezzo ?> &euro;</td>
                 <td><a href="" class="btn btn-link">rimuovi</a></td>
               </tr>
               <?php
