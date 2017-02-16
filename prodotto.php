@@ -46,6 +46,37 @@ $prodotto = $stmt->fetch(PDO::FETCH_ASSOC);
             <strong>Prezzo</strong>: <?= $prodotto['prezzo'] ?>
           </div>
           <br>
+
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Nome variante</th>
+              <th>Prezzo</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+
+            $stmt = $db->prepare('SELECT * 
+                                  FROM prodottivarianti, varianti
+                                  WHERE prodottivarianti.variante_id = varianti.id
+                                  AND prodottivarianti.prodotto_id = :id_prodotto');
+
+            // bind parametro alla query
+            $stmt->bindParam(':id_prodotto', $id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            foreach($stmt->fetchAll(PDO::FETCH_ASSOC) as $variante) {
+              $prezzo = $variante['prezzo'] + $prodotto['prezzo'];
+              ?>
+              <tr>
+                <td><?= $variante['nome'] ?></td>
+                <td><?= $prezzo ?> &euro;</td>
+              </tr>
+            <?php } ?>
+            </tbody>
+          </table>
+
           <div>
             <a href="#" class="btn btn-success">Acquista</a>
           </div>
