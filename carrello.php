@@ -8,7 +8,10 @@ include 'libs/db.php';
 $db = creaConnessionePDO();
 
 // recuperiamo i dati del carrello dalla sessione
-$carrello = $_SESSION['carrello'];
+$carrello = [];
+if (isset($_SESSION['carrello'])) {
+  $carrello = $_SESSION['carrello'];
+}
 
 ?>
 <!DOCTYPE html>
