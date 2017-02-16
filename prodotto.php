@@ -52,6 +52,7 @@ $prodotto = $stmt->fetch(PDO::FETCH_ASSOC);
             <tr>
               <th>Nome variante</th>
               <th>Prezzo</th>
+              <th></th>
             </tr>
             </thead>
             <tbody>
@@ -72,14 +73,12 @@ $prodotto = $stmt->fetch(PDO::FETCH_ASSOC);
               <tr>
                 <td><?= $variante['nome'] ?></td>
                 <td><?= $prezzo ?> &euro;</td>
+                <td><a href="aggiungi_prodotto_carrello.php?id_variante=<?=$variante['variante_id']?>&id_prodotto=<?=$variante['prodotto_id']?>" class="btn btn-success">Acquista</a></td>
               </tr>
             <?php } ?>
             </tbody>
           </table>
 
-          <div>
-            <a href="#" class="btn btn-success">Acquista</a>
-          </div>
         </div>
       </div>
     </main>
