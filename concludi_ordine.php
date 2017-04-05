@@ -25,7 +25,7 @@ try {
     $ordine = [];
 
     // dati cliente
-    $ordine['cliente'] = $utente;
+    $ordine['cliente'] = [COMPLETARE];
 
     // prodotti
     $prodotti = [];
@@ -52,22 +52,17 @@ try {
 
         $descrizione = $valori['nome'] . ' - ' . $valori['nome_variante'];
 
-        $prodotti[] = [
-          'descrizione' => $descrizione,
-          'prezzo' => $prezzo,
-          'prodotto_id' => $rigaCarrello['prodotto'],
-          'variante_id' => $rigaCarrello['variante']
-        ];
+        $prodotti[] = [COMPLETARE]
 
     }
 
-    $ordine['prodotti'] = $prodotti;
+    $ordine['prodotti'] = [COMPLETARE];
 
     // altri dati
     $ordine['data'] = date('Y-m-d H:i:s');
 
     // salvataggio documento su CouchDB
-    $couchdb->storeDoc((object) $ordine);
+    $couchdb->storeDoc((object) [COMPLETARE]);
 
     // svuotamento variabili di sessione
     unset($_SESSION['utente']);
