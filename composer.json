@@ -1,0 +1,13 @@
+{
+    "name": "mvlabs/db2017",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Stefano Valle",
+            "email": "s.valle@mvassociati.it"
+        }
+    ],
+    "require": {
+        "php-on-couch/php-on-couch": "^2.0"
+    }
+}
