@@ -5,10 +5,14 @@ session_start();
 
 include 'libs/db.php';
 include 'libs/couchdb.php';
+include 'libs/redis.php';
 include 'vendor/autoload.php';
 
 // inizializzazione connessione a Postgres
 $db = creaConnessionePDO();
+
+// inizializzazione connessione a Redis
+$redisClient = creaConnessioneRedis();
 
 // inizializzazione connessione a CouchDB
 $couchdb = creaConnessioneCouchDB();
@@ -72,6 +76,9 @@ try {
     // svuotamento variabili di sessione
     unset($_SESSION['utente']);
     unset($_SESSION['carrello']);
+
+    // notifica ordine ricevuto
+    $redisClient->publish('ordini', json_encode($ordine));
 
     // rimando a pagina conclusiva
     header ('location: grazie.php');
