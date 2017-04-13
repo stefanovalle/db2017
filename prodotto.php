@@ -1,12 +1,18 @@
 <?php
 include 'libs/db.php';
+include 'libs/redis.php';
+include 'vendor/autoload.php';
 
 $db = creaConnessionePDO();
+$redisClient = creaConnessioneRedis();
 
 // lettura parametro da URL
 $id = $_GET['id'];
 
-$stmt = $db->prepare('SELECT macrocategorie.nome as macrocategoria, categorie.nome as categoria, prodotti.* 
+// incremento contatore visite
+$redisClient->incr('prodotti:' . $id . ':visite');
+
+$stmt = $db->prepare('SELECT macrocategorie.nome as macrocategoria, categorie.nome as categoria, prodotti.*
                       FROM prodotti, macrocategorie, categorie
                       WHERE prodotti.categoria_id = categorie.id
                       AND categorie.macrocategoria_id = macrocategorie.id
@@ -58,7 +64,7 @@ $prodotto = $stmt->fetch(PDO::FETCH_ASSOC);
             <tbody>
             <?php
 
-            $stmt = $db->prepare('SELECT * 
+            $stmt = $db->prepare('SELECT *
                                   FROM prodottivarianti, varianti
                                   WHERE prodottivarianti.variante_id = varianti.id
                                   AND prodottivarianti.prodotto_id = :id_prodotto');
