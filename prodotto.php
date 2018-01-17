@@ -67,6 +67,17 @@ $prodotto = $stmt->fetch(PDO::FETCH_ASSOC);
             $stmt->bindParam(':id_prodotto', $id, PDO::PARAM_INT);
             $stmt->execute();
 
+            // Se non ci sono varianti mostro il solo prodotto
+            if ($stmt->rowCount() == 0){
+            ?>
+              <tr>
+                <td><?= $prodotto['nome'] ?></td>
+                <td><?= $prodotto['prezzo'] ?> &euro;</td>
+                <td><a href="aggiungi_prodotto_carrello.php?id_prodotto=<?=$protodtto['prodotto_id']?>" class="btn btn-success">Acquista</a></td>
+              </tr>
+            <?php
+            } else {
+
             foreach($stmt->fetchAll(PDO::FETCH_ASSOC) as $variante) {
               $prezzo = $variante['prezzo'] + $prodotto['prezzo'];
               ?>
@@ -75,7 +86,8 @@ $prodotto = $stmt->fetch(PDO::FETCH_ASSOC);
                 <td><?= $prezzo ?> &euro;</td>
                 <td><a href="aggiungi_prodotto_carrello.php?id_variante=<?=$variante['variante_id']?>&id_prodotto=<?=$variante['prodotto_id']?>" class="btn btn-success">Acquista</a></td>
               </tr>
-            <?php } ?>
+            <?php }
+            } ?>
             </tbody>
           </table>
 
