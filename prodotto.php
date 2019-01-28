@@ -73,7 +73,7 @@ $prodotto = $stmt->fetch(PDO::FETCH_ASSOC);
               <tr>
                 <td><?= $prodotto['nome'] ?></td>
                 <td><?= $prodotto['prezzo'] ?> &euro;</td>
-                <td><a href="aggiungi_prodotto_carrello.php?id_prodotto=<?=$protodtto['prodotto_id']?>" class="btn btn-success">Acquista</a></td>
+                <td><a href="aggiungi_prodotto_carrello.php?id_prodotto=<?=$prodotto['id']?>" class="btn btn-success">Acquista</a></td>
               </tr>
             <?php
             } else {
